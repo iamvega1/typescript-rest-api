@@ -1,6 +1,8 @@
 import { ISubscribersModel } from 'Data/Models/Subscribers.model'
 import { ISubscribersService } from 'Core/Ports/ISubscribers.service'
 import { ISubscribersRepository } from 'Core/Ports/ISubscribers.repository'
+import { CreateSubscribersRequestDto } from 'Core/Dtos/Subscribers/CreateSubscribers.dto'
+import { UpdateSubscriberDto } from 'Core/Dtos/Subscribers/UpdateSubscriberDto'
 
 export interface ISubscribersServiceOptions {
   subscribersRepository: ISubscribersRepository
@@ -20,25 +22,12 @@ export class SubscribersService implements ISubscribersService {
     return this._subRepo.findOneSubscriber(id)
   }
 
-  public async createSubscriber(data: Omit<ISubscribersModel, '_id'>) {
+  public async createSubscriber(data: CreateSubscribersRequestDto) {
     return this._subRepo.save(data)
   }
 
-  public async changeSubscriber(
-    id: string,
-    { name, subscribedToChannel }: Omit<ISubscribersModel, '_id'>
-  ) {
-    const subscriber = await this.getOneSubscriber(id)
-
-    if (!subscriber) {
-      throw new Error('Could not change subscriber because it does not exist')
-    }
-
-    subscriber.name = name
-    subscriber.subscribedToChannel = subscribedToChannel
-    subscriber.save()
-
-    return subscriber
+  public async updateSubscriber(data: UpdateSubscriberDto) {
+    return this._subRepo.updateSubscriber(data)
   }
 
   public async deleteSubscriber(id: string) {

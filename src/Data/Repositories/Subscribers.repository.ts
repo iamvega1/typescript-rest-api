@@ -2,6 +2,7 @@ import SubscribersModel, {
   ISubscribersModel,
 } from 'Data/Models/Subscribers.model'
 import { ISubscribersRepository } from 'Core/Ports/ISubscribers.repository'
+import { UpdateSubscriberDto } from 'Core/Dtos/Subscribers/UpdateSubscriberDto'
 
 export class SubscribersRepository implements ISubscribersRepository {
   private _model = SubscribersModel
@@ -17,6 +18,11 @@ export class SubscribersRepository implements ISubscribersRepository {
   public async save(data: Omit<ISubscribersModel, '_id'>) {
     const subscriber = new this._model(data)
     return subscriber.save()
+  }
+
+  async updateSubscriber({ _id, ...data }: UpdateSubscriberDto) {
+    await this._model.updateOne({ _id }, data)
+    return this.findOneSubscriber(_id)
   }
 
   public async delete(id: string) {

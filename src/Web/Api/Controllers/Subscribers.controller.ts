@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
 import { ISubscribersService } from 'Core/Ports/ISubscribers.service'
 import { BaseHttpController } from 'Web/Lib/BaseHttp.controller'
+import { HttpResponseDto } from 'Web/Lib/HttpResponse.dto'
+import { ISubscribersModel } from 'Data/Models/Subscribers.model'
 
 export interface ISubscribersControllerOptions {
   subscribersService: ISubscribersService
@@ -17,7 +19,12 @@ export class SubscribersController extends BaseHttpController {
 
   async index(_: any, res: Response) {
     const subscribers = await this._subscribersService.getAllSubscribers()
-    res.status(200).json(subscribers)
+
+    res.status(200).json({
+      statusCode: 200,
+      error: null,
+      data: subscribers,
+    } as HttpResponseDto<ISubscribersModel[]>)
   }
 
   async show(req: Request, res: Response) {
@@ -25,17 +32,28 @@ export class SubscribersController extends BaseHttpController {
       req.params.id
     )
 
-    res.status(200).json(subscriber)
+    res.status(200).json({
+      statusCode: 201,
+      error: null,
+      data: subscriber,
+    } as HttpResponseDto<ISubscribersModel>)
   }
 
   async store(req: Request, res: Response) {
     const subscriber = await this._subscribersService.createSubscriber(req.body)
 
-    res.status(201).json(subscriber)
+    res.status(200).json({
+      statusCode: 201,
+      error: null,
+      data: subscriber,
+    } as HttpResponseDto<ISubscribersModel>)
   }
 
   async update(req: Request, res: Response) {
-    await this._subscribersService.changeSubscriber(req.params.id, req.body)
+    await this._subscribersService.updateSubscriber({
+      _id: req.params.id,
+      ...req.body,
+    })
 
     res.sendStatus(204)
   }
