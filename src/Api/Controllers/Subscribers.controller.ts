@@ -1,43 +1,38 @@
 import { Request, Response } from 'express'
 import SubscribersModel from '../Models/Subscribers.model'
+import { SubscribersService } from '../Services/Subscribers.service'
+import { BaseHttpController } from '../../Lib/BaseHttp.controller'
 
-export class SubscribersController {
+export class SubscribersController extends BaseHttpController {
+  private _subscribersService = new SubscribersService()
+
   async index(_: any, res: Response) {
-    const subscribers = await SubscribersModel.find({})
+    const subscribers = await this._subscribersService.getAllSubscribers()
     res.status(200).json(subscribers)
   }
 
   async show(req: Request, res: Response) {
-    const subscriber = await SubscribersModel.findById(req.params.id)
+    const subscriber = await this._subscribersService.getOneSubscriber(
+      req.params.id
+    )
+
     res.status(200).json(subscriber)
   }
 
   async store(req: Request, res: Response) {
-    const subscriber = new SubscribersModel(req.body)
-    await subscriber.save()
+    const subscriber = await this._subscribersService.createSubscriber(req.body)
 
     res.status(201).json(subscriber)
   }
 
   async update(req: Request, res: Response) {
-    const subscriber = await SubscribersModel.findById(req.params.id)
+    await this._subscribersService.changeSubscriber(req.params.id, req.body)
 
-    if (subscriber) {
-      subscriber.name = req.body?.name
-      subscriber.subscribedToChannel = req.body?.subscribedToChannel
-      subscriber.save()
-      return res.sendStatus(204)
-    }
-
-    res.sendStatus(404)
+    res.sendStatus(204)
   }
 
   async destroy(req: Request, res: Response) {
-    const subscriber = await SubscribersModel.findById(req.params.id)
-
-    if (subscriber) {
-      subscriber.remove()
-    }
+    await this._subscribersService.deleteSubscriber(req.params.id)
 
     res.sendStatus(204)
   }
