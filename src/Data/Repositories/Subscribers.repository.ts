@@ -2,7 +2,7 @@ import SubscribersModel, {
   ISubscribersModel,
 } from '../Models/Subscribers.model'
 
-export class ServiceRepository {
+export class SubscribersRepository {
   private _model = SubscribersModel
 
   public async getAllSubscribers() {

@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
-import SubscribersModel from '../Models/Subscribers.model'
-import { SubscribersService } from '../Services/Subscribers.service'
+import { SubscribersService } from '../../../Core/Services/Subscribers.service'
 import { BaseHttpController } from '../../Lib/BaseHttp.controller'
 
 export class SubscribersController extends BaseHttpController {

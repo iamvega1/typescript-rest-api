@@ -1,8 +1,8 @@
-import { ServiceRepository } from '../Repositories/Service.repository'
-import { ISubscribersModel } from '../Models/Subscribers.model'
+import { SubscribersRepository } from '../../Data/Repositories/Subscribers.repository'
+import { ISubscribersModel } from '../../Data/Models/Subscribers.model'
 
 export class SubscribersService {
-  private _repository = new ServiceRepository()
+  private _repository = new SubscribersRepository()
 
   public async getAllSubscribers() {
     return this._repository.getAllSubscribers()

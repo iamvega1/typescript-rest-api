@@ -1,5 +1,5 @@
 // https://github.com/WebDevSimplified/Your-First-Node-REST-API
-import { Database } from './Database'
+import { Database } from '../Data/Database'
 import { Application } from './Lib/Application'
 import Routes from './Routes'
 
