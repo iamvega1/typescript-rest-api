@@ -1,8 +1,9 @@
 import SubscribersModel, {
   ISubscribersModel,
-} from '../Models/Subscribers.model'
+} from 'Data/Models/Subscribers.model'
+import { ISubscribersRepository } from 'Core/Ports/ISubscribers.repository'
 
-export class SubscribersRepository {
+export class SubscribersRepository implements ISubscribersRepository {
   private _model = SubscribersModel
 
   public async getAllSubscribers() {
@@ -19,6 +20,7 @@ export class SubscribersRepository {
   }
 
   public async delete(id: string) {
-    return this._model.deleteOne({ _id: id })
+    const { deletedCount } = await this._model.deleteOne({ _id: id })
+    return deletedCount ? deletedCount >= 1 : false
   }
 }

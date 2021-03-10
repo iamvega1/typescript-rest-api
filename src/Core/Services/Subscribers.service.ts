@@ -1,19 +1,27 @@
-import { SubscribersRepository } from '../../Data/Repositories/Subscribers.repository'
-import { ISubscribersModel } from '../../Data/Models/Subscribers.model'
+import { ISubscribersModel } from 'Data/Models/Subscribers.model'
+import { ISubscribersService } from 'Core/Ports/ISubscribers.service'
+import { ISubscribersRepository } from 'Core/Ports/ISubscribers.repository'
 
-export class SubscribersService {
-  private _repository = new SubscribersRepository()
+export interface ISubscribersServiceOptions {
+  subscribersRepository: ISubscribersRepository
+}
+export class SubscribersService implements ISubscribersService {
+  private readonly _subRepo: ISubscribersRepository
+
+  constructor({ subscribersRepository }: ISubscribersServiceOptions) {
+    this._subRepo = subscribersRepository
+  }
 
   public async getAllSubscribers() {
-    return this._repository.getAllSubscribers()
+    return this._subRepo.getAllSubscribers()
   }
 
   public async getOneSubscriber(id: string) {
-    return this._repository.findOneSubscriber(id)
+    return this._subRepo.findOneSubscriber(id)
   }
 
   public async createSubscriber(data: Omit<ISubscribersModel, '_id'>) {
-    return this._repository.save(data)
+    return this._subRepo.save(data)
   }
 
   public async changeSubscriber(
@@ -34,6 +42,6 @@ export class SubscribersService {
   }
 
   public async deleteSubscriber(id: string) {
-    return this._repository.delete(id)
+    return this._subRepo.delete(id)
   }
 }

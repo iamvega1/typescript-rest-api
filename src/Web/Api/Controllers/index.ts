@@ -1,3 +1,3 @@
-import { SubscribersController } from './Subscribers.controller'
+import { container } from 'Config/DI/Container'
 
-export const subscribersController = new SubscribersController()
+export const subscribersController = container.resolve('subscribersController')

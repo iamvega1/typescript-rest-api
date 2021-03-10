@@ -1,9 +1,15 @@
 // https://github.com/WebDevSimplified/Your-First-Node-REST-API
-import { Database } from '../Data/Database'
-import { Application } from './Lib/Application'
-import Routes from './Routes'
+import { Database } from 'Data/Database'
+import { Application } from 'Web/Lib/Application'
+
+import Routes from 'Web/Routes'
 
 class App extends Application {
+  // Needed for testing
+  get server() {
+    return this._server
+  }
+
   public async boot() {
     await Database.connect()
 

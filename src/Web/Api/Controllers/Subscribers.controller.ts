@@ -1,9 +1,19 @@
 import { Request, Response } from 'express'
-import { SubscribersService } from '../../../Core/Services/Subscribers.service'
-import { BaseHttpController } from '../../Lib/BaseHttp.controller'
+import { ISubscribersService } from 'Core/Ports/ISubscribers.service'
+import { BaseHttpController } from 'Web/Lib/BaseHttp.controller'
+
+export interface ISubscribersControllerOptions {
+  subscribersService: ISubscribersService
+}
 
 export class SubscribersController extends BaseHttpController {
-  private _subscribersService = new SubscribersService()
+  private readonly _subscribersService: ISubscribersService
+
+  constructor({ subscribersService }: ISubscribersControllerOptions) {
+    super()
+
+    this._subscribersService = subscribersService
+  }
 
   async index(_: any, res: Response) {
     const subscribers = await this._subscribersService.getAllSubscribers()

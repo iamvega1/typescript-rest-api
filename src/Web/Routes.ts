@@ -1,4 +1,5 @@
 import Path from 'path'
+
 import { Router as ExpressRouter } from 'express'
 import { Browter } from '@donnyroufs/browter'
 import { ExpressToBrowterAdapter } from '@donnyroufs/express-to-browter-adapter'
