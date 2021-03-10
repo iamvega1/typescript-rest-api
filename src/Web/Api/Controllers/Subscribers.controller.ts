@@ -3,6 +3,7 @@ import { ISubscribersService } from 'Core/Ports/ISubscribers.service'
 import { BaseHttpController } from 'Web/Lib/BaseHttp.controller'
 import { HttpResponseDto } from 'Web/Lib/HttpResponse.dto'
 import { ISubscribersModel } from 'Data/Models/Subscribers.model'
+import { SubscribersMapper } from 'Config/Mappers/Subscribers.mapper.dto'
 
 export interface ISubscribersControllerOptions {
   subscribersService: ISubscribersService
@@ -40,7 +41,10 @@ export class SubscribersController extends BaseHttpController {
   }
 
   async store(req: Request, res: Response) {
-    const subscriber = await this._subscribersService.createSubscriber(req.body)
+    const requestData = SubscribersMapper.toCreateRequestDto(req.body)
+    const subscriber = await this._subscribersService.createSubscriber(
+      requestData
+    )
 
     res.status(200).json({
       statusCode: 201,
@@ -50,10 +54,11 @@ export class SubscribersController extends BaseHttpController {
   }
 
   async update(req: Request, res: Response) {
-    await this._subscribersService.updateSubscriber({
+    const requestData = SubscribersMapper.toUpdateRequestDto({
       _id: req.params.id,
       ...req.body,
     })
+    await this._subscribersService.updateSubscriber(requestData)
 
     res.sendStatus(204)
   }

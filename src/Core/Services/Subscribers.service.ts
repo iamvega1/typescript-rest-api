@@ -1,8 +1,8 @@
-import { ISubscribersModel } from 'Data/Models/Subscribers.model'
 import { ISubscribersService } from 'Core/Ports/ISubscribers.service'
 import { ISubscribersRepository } from 'Core/Ports/ISubscribers.repository'
 import { CreateSubscribersRequestDto } from 'Core/Dtos/Subscribers/CreateSubscribers.dto'
 import { UpdateSubscriberDto } from 'Core/Dtos/Subscribers/UpdateSubscriberDto'
+import { SubscribersMapper } from 'Config/Mappers/Subscribers.mapper.dto'
 
 export interface ISubscribersServiceOptions {
   subscribersRepository: ISubscribersRepository
@@ -15,15 +15,23 @@ export class SubscribersService implements ISubscribersService {
   }
 
   public async getAllSubscribers() {
-    return this._subRepo.getAllSubscribers()
+    const subscribers = await this._subRepo.getAllSubscribers()
+    return SubscribersMapper.manyToweb(subscribers)
   }
 
   public async getOneSubscriber(id: string) {
-    return this._subRepo.findOneSubscriber(id)
+    const subscriber = await this._subRepo.findOneSubscriber(id)
+
+    if (!subscriber) {
+      throw new Error('Not found')
+    }
+
+    return SubscribersMapper.toWeb(subscriber)
   }
 
   public async createSubscriber(data: CreateSubscribersRequestDto) {
-    return this._subRepo.save(data)
+    const subscriber = await this._subRepo.save(data)
+    return SubscribersMapper.toCreateResponseDto(subscriber)
   }
 
   public async updateSubscriber(data: UpdateSubscriberDto) {

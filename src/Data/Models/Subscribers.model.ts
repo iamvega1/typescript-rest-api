@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
-export interface ISubscribersModel extends Document {
+export interface ISubscribersModel {
   _id: string
   name: string
   subscribedToChannel: string
@@ -23,7 +23,7 @@ const SubscribersModel: Schema = new Schema({
   },
 })
 
-export default mongoose.model<ISubscribersModel>(
+export default mongoose.model<ISubscribersModel & Document>(
   'Subscribers',
   SubscribersModel
 )

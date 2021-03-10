@@ -1,4 +1,7 @@
-import { CreateSubscribersRequestDto } from 'Core/Dtos/Subscribers/CreateSubscribers.dto'
+import {
+  CreateSubscribersRequestDto,
+  CreateSubscribersResponseDto,
+} from 'Core/Dtos/Subscribers/CreateSubscribers.dto'
 import { UpdateSubscriberDto } from 'Core/Dtos/Subscribers/UpdateSubscriberDto'
 import { ISubscribersModel } from 'Data/Models/Subscribers.model'
 
@@ -7,7 +10,7 @@ export interface ISubscribersService {
   getOneSubscriber(id: string): Promise<ISubscribersModel | null>
   createSubscriber(
     data: CreateSubscribersRequestDto
-  ): Promise<ISubscribersModel>
+  ): Promise<CreateSubscribersResponseDto>
   updateSubscriber(data: UpdateSubscriberDto): Promise<ISubscribersModel | null>
   deleteSubscriber(id: string): Promise<boolean>
 }
