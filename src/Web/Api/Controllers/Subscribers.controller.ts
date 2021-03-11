@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { ISubscribersService } from 'Core/Ports/ISubscribers.service'
 import { BaseHttpController } from 'Web/Lib/BaseHttp.controller'
-import { HttpResponseDto } from 'Web/Lib/HttpResponse.dto'
 import { ISubscribersModel } from 'Data/Models/Subscribers.model'
 import { SubscribersMapper } from 'Config/Mappers/Subscribers.mapper.dto'
 
