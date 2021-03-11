@@ -10,7 +10,9 @@ class App extends Application {
   }
 
   public async boot() {
-    await Database.connect()
+    if (process.env.NODE_ENV != 'test') {
+      await Database.connect()
+    }
 
     this._server.use(Routes)
   }

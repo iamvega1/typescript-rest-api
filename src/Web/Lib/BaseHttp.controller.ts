@@ -1,5 +1,6 @@
 import { Response } from 'express'
 import { HttpResponseDto } from './HttpResponse.dto'
+
 export class BaseHttpController {
   constructor() {
     this.autoBindMethods()
