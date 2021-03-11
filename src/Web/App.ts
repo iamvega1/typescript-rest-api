@@ -1,4 +1,3 @@
-// https://github.com/WebDevSimplified/Your-First-Node-REST-API
 import { Database } from 'Data/Database'
 import { Application } from 'Web/Lib/Application'
 

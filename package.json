@@ -18,11 +18,13 @@
     "@donnyroufs/express-to-browter-adapter": "^1.0.1",
     "@hapi/joi": "^17.1.1",
     "@types/express": "^4.17.11",
+    "@types/morgan": "^1.9.2",
     "@types/node": "^14.14.33",
     "awilix": "^4.3.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-joi-validation": "^5.0.0",
-    "mongoose": "^5.11.19"
+    "mongoose": "^5.11.19",
+    "morgan": "^1.10.0"
   }
 }
