@@ -1,6 +1,19 @@
+import { Response } from 'express'
+import { HttpResponseDto } from './HttpResponse.dto'
 export class BaseHttpController {
   constructor() {
     this.autoBindMethods()
+  }
+
+  protected toJson<T>(
+    res: Response,
+    { statusCode = 200, error = null, data }: Partial<HttpResponseDto<T>>
+  ) {
+    return res.status(statusCode).json({
+      statusCode,
+      error,
+      data,
+    } as HttpResponseDto<T>)
   }
 
   private autoBindMethods() {

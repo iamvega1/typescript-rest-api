@@ -21,11 +21,9 @@ export class SubscribersController extends BaseHttpController {
   async index(_: any, res: Response) {
     const subscribers = await this._subscribersService.getAllSubscribers()
 
-    res.status(200).json({
-      statusCode: 200,
-      error: null,
+    this.toJson<ISubscribersModel[]>(res, {
       data: subscribers,
-    } as HttpResponseDto<ISubscribersModel[]>)
+    })
   }
 
   async show(req: Request, res: Response) {
@@ -33,11 +31,9 @@ export class SubscribersController extends BaseHttpController {
       req.params.id
     )
 
-    res.status(200).json({
-      statusCode: 201,
-      error: null,
-      data: subscriber,
-    } as HttpResponseDto<ISubscribersModel>)
+    this.toJson<ISubscribersModel>(res, {
+      data: subscriber!,
+    })
   }
 
   async store(req: Request, res: Response) {
@@ -46,11 +42,10 @@ export class SubscribersController extends BaseHttpController {
       requestData
     )
 
-    res.status(200).json({
+    this.toJson<ISubscribersModel>(res, {
       statusCode: 201,
-      error: null,
       data: subscriber,
-    } as HttpResponseDto<ISubscribersModel>)
+    })
   }
 
   async update(req: Request, res: Response) {
