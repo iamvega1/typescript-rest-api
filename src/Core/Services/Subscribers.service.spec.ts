@@ -1,8 +1,8 @@
 import { SubscribersService } from 'Core/Services/Subscribers.service'
 import { ISubscribersModel } from 'Data/Models/Subscribers.model'
-import { CreateSubscribersRequestDto } from './Dtos/Subscribers/CreateSubscribers.dto'
-import { UpdateSubscriberDto } from './Dtos/Subscribers/UpdateSubscriberDto'
-import { ISubscribersRepository } from './Ports/ISubscribers.repository'
+import { CreateSubscribersRequestDto } from '../Dtos/Subscribers/CreateSubscribers.dto'
+import { UpdateSubscriberDto } from '../Dtos/Subscribers/UpdateSubscriberDto'
+import { ISubscribersRepository } from '../Ports/ISubscribers.repository'
 
 /*
   Example test setup
