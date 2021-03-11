@@ -9,7 +9,7 @@ class App extends Application {
     return this._server
   }
 
-  public async boot() {
+  public async setup() {
     if (process.env.NODE_ENV != 'test') {
       await Database.connect()
     }

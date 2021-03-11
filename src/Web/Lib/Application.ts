@@ -10,13 +10,13 @@ export abstract class Application {
     this.run()
   }
 
-  public abstract boot(): Promise<void>
+  public abstract setup(): Promise<void>
 
   private async run() {
     this._server.use(morgan('common'))
     this._server.use(express.json())
 
-    await this.boot()
+    await this.setup()
 
     this._server.listen(Application.PORT, this.onSuccessListen.bind(this))
   }
